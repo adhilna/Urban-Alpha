@@ -3,24 +3,42 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<header class="bg-darkgreen-600 text-white p-4">
-    <h1 class="text-2xl font-bold">Welcome to Urban Alpha</h1>
-</header>
 
 <!-- Parent Categories Section -->
 <nav class="bg-gray-100 py-2 shadow">
     <div class="container mx-auto flex space-x-4">
         {% for category in parent_categories %}
-            <a href="#" class="text-gray-700 hover:text-darkgreen-600 font-medium">
-                {{ category.name }}
-            </a>
+            <a href="#" class="text-white bg-[#51942d] hover:bg-black font-medium py-2 px-4 rounded-lg shadow-md
+            hover:shadow-lg transition-all duration-300">
+    {{ category.name }}
+</a>
         {% endfor %}
     </div>
 </nav>
 
-<!-- Rest of the Page -->
-<div class="p-6">
-    <h2 class="text-xl font-bold">Discover Our Collection</h2>
-    <p>Shop by categories, styles, and more!</p>
-</div>
+<section class="bg-gray-50 py-10">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">Featured Products</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="{{ product.image.url|default:'static/images/placeholder.jpg' }}" alt="{{ product.name }}">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 truncate">{{ product.name }}</h3>
+                    <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ product.description }}</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <span class="text-[#51942d] font-semibold">${{ product.price }}</span>
+                        <a href="#" class="text-sm bg-[#51942d] text-white py-1 px-3 rounded hover:bg-black transition">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}
