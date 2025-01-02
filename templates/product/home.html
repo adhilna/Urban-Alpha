@@ -1,0 +1,26 @@
+{% extends 'product/main.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<header class="bg-darkgreen-600 text-white p-4">
+    <h1 class="text-2xl font-bold">Welcome to Urban Alpha</h1>
+</header>
+
+<!-- Parent Categories Section -->
+<nav class="bg-gray-100 py-2 shadow">
+    <div class="container mx-auto flex space-x-4">
+        {% for category in parent_categories %}
+            <a href="#" class="text-gray-700 hover:text-darkgreen-600 font-medium">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+</nav>
+
+<!-- Rest of the Page -->
+<div class="p-6">
+    <h2 class="text-xl font-bold">Discover Our Collection</h2>
+    <p>Shop by categories, styles, and more!</p>
+</div>
+{% endblock %}
