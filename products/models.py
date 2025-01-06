@@ -5,6 +5,7 @@ from django.utils.text import slugify
 class Category(models.Model):
     name = models.CharField(max_length=128, db_index=True)
     slug = models.SlugField(max_length=128, unique=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)  # New field added
 
     class Meta:
         verbose_name_plural = 'categories'
@@ -16,6 +17,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 class Product(models.Model):

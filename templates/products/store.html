@@ -1,0 +1,199 @@
+{% extends 'products/main.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Start Page Wrapper -->
+<div class="page-wrapper">
+    <div class="page-content">
+        
+        <!-- Start Breadcrumb -->
+        <section class="py-3 border-bottom border-top d-none d-md-flex bg-light">
+            <div class="container">
+                <div class="page-breadcrumb d-flex align-items-center">
+                    <h3 class="breadcrumb-title pe-3">Shop</h3>
+                    <div class="ms-auto">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 p-0">
+                                <li class="breadcrumb-item"><a href="#"><i class="bx bx-home-alt"></i> Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Breadcrumb -->
+
+        <!-- Start Shop Area -->
+        <section class="py-4">
+            <div class="container">
+                <div class="btn btn-dark btn-ecomm d-xl-none position-fixed top-50 start-0 translate-middle-y z-index-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarFilter">
+                    <span><i class='bx bx-filter-alt me-1'></i> Filters</span>
+                </div>
+                <div class="row">
+                    <!-- Start Filters -->
+                    <div class="col-12 col-xl-3 filter-column">
+                        <nav class="navbar navbar-expand-xl flex-wrap p-0">
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarFilter" aria-labelledby="offcanvasNavbarFilterLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title mb-0 fw-bold" id="offcanvasNavbarFilterLabel">Filters</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="filter-sidebar">
+                                        <!-- Categories Section -->
+                                        <div class="card rounded shadow-none border ">
+                                            <div class="card-header d-none d-xl-block bg-transparent">
+                                                <h5 class="mb-0 fw-bold">Filters</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="p-1 fw-bold bg-light">Categories</h6>
+                                                <div class="categories">
+                                                    <div class="categories-wrapper height-1 p-1">
+                                                        <!-- Loop to render categories -->
+                                                        {% for category in category %}
+                                                        <div class="form-check">
+                                                            <input class="form-check-input filter-checkbox" type="checkbox" value="{{ category.id }}" id="chekCate1">
+                                                            <label class="form-check-label" for="chekCate1">
+                                                                <span>{{ category.name }}</span><span class="product-number">({{ category.active_products_count }})</span>
+                                                            </label>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Brands Section -->
+                                        <div class="brands">
+                                            <h6 class="p-1 fw-bold bg-light">Brands</h6>
+                                            <div class="brands-wrapper height-1 p-1">
+                                                {% for brand in brands %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input filter-checkbox" type="checkbox" value="{{ brand.id }}" id="chekBrand1">
+                                                    <label class="form-check-label" for="chekBrand1">
+                                                        <span>{{ brand.name }}</span><span class="product-number">({{ brand.active_products_count }})</span>
+                                                    </label>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <!-- Price Section -->
+                                        <div class="Price">
+                                            <h6 class="p-1 fw-bold bg-light">Price</h6>
+                                            <div class="Price-wrapper p-1">
+                                                <div class="input-group">
+                                                    <input type="text" id="minPrice" class="form-control rounded" placeholder="₹10">
+                                                    <span class="input-group-text bg-section-1 border-0 rounded mx-1">-</span>
+                                                    <input type="text" id="maxPrice" class="form-control rounded" placeholder="₹10000">
+                                                    <button type="button" class="filter-checkbox btn btn-outline-dark rounded ms-2"><i class='bx bx-chevron-right me-0'></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Discount Section -->
+                                        <div class="discount">
+                                            <h6 class="p-1 fw-bold bg-light">Discount Range</h6>
+                                            <div class="discount-wrapper p-1">
+                                                <!-- Example discount options -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input filter-checkbox" type="checkbox" value="10" id="chekDisc1">
+                                                    <label class="form-check-label" for="chekDisc1">10% and Above</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input filter-checkbox" type="checkbox" value="20" id="chekDisc2">
+                                                    <label class="form-check-label" for="chekDisc2">20% and Above</label>
+                                                </div>
+                                                <!-- Add more discounts as needed -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- End Filters -->
+
+                    <!-- Start Products -->
+                    <div class="col-12 col-xl-9">
+                        <div class="product-wrapper">
+                            <!-- Sorting and Pagination Controls -->
+                            <div class="toolbox d-flex align-items-center mb-3 gap-2 border rounded p-3">
+                                <div class="d-flex flex-wrap flex-grow-1 gap-1">
+                                    <p class="mb-0 font-13 text-nowrap">Sort By:</p>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <select name="sortOption" class="form-select ms-3 rounded">
+                                            <option value="">Default sorting (New to Old)</option>
+                                            <option value="id">Sort by Old to New</option>
+                                            <option value="display_price">Sort by price: low to high</option>
+                                            <option value="-display_price">Sort by price: high to low</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <button type="submit" class="btn btn-dark rounded mx-4 fw-bold">Sort</button>
+                            </div>
+
+                            <!-- Product Grid -->
+                            <div class="product-grid">
+                                <div class="row row-cols-2 row-cols-md-3 g-3" id="filtered-product">
+                                    {% for product in products %}
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="position-relative overflow-hidden rounded">
+                                                <div class="image-wrapper rounded">
+                                                    <a href="{% url 'products:item' product.slug %}" class="rounded">
+                                                        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <h6>{{ product.name }}</h6>
+                                                <div class="product-price">
+                                                    <div class="h6 fw-bold">₹{{ product.price }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="d-flex justify-content-center mt-4">
+                                <ul class="pagination">
+                                    {% if paginated_objects.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ paginated_objects.previous_page_number }}">Previous</a></li>
+                                    {% endif %}
+
+                                    {% for num in paginated_objects.paginator.page_range %}
+                                    <li class="page-item {% if num == paginated_objects.number %}active{% endif %}">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                    {% endfor %}
+
+                                    {% if paginated_objects.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ paginated_objects.next_page_number }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ paginated_objects.paginator.num_pages }}">Last &raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Products -->
+                </div>
+            </div>
+        </section>
+        <!-- End Shop Area -->
+    </div>
+</div>
+<!-- End Page Wrapper -->
+
+                    
+                            
+        
+
+
+{% endblock %}

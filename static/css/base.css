@@ -5,3 +5,148 @@
   object-fit: cover;
   /* Ensures the image fills the space while maintaining aspect ratio */
 }
+
+.custom-card {
+  height: 300px;
+  /* Set the desired height of the card */
+  overflow: hidden;
+  /* Prevents content from spilling outside the card */
+}
+
+.custom-card .card-img {
+  height: 100%;
+  object-fit: cover;
+  /* Ensures the image covers the card proportionally */
+}
+
+/* Mobile responsiveness styles */
+@media (max-width: 992px) {
+  .thumbnail-images {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .thumbnail-container {
+    width: 120px;
+    margin-right: 10px;
+  }
+
+  .main-image-container {
+    height: auto;
+    max-width: 100%;
+  }
+
+  #sm-img-col {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .thumbnail-images {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .thumbnail-container {
+    width: 90px;
+    margin-right: 10px;
+  }
+
+  .main-image-container {
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  #sm-image {
+    width: 20%;
+    margin-right: 0px;
+  }
+
+  #bg-image {
+    width: 79%;
+  }
+
+  .thumbnail-images {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .thumbnail-container {
+    margin-right: 1px;
+  }
+
+  .main-image-container {
+    height: auto;
+  }
+
+  .small-images {
+    width: 20%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .small-thumbnail {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 440px) {
+  #sm-image {
+    width: 20%;
+  }
+
+  #bg-image {
+    width: 79%;
+  }
+}
+
+@media (max-width: 400px) {
+  #sm-image {
+    width: 20%;
+  }
+
+  #bg-image {
+    width: 77%;
+  }
+}
+
+/* Zoom container styles */
+@media (min-width: 992px) {
+  #zoom-image-container {
+    position: absolute;
+    top: 280px;
+    right: 50px;
+    left: 44%;
+    width: 56%;
+    height: 380px;
+    overflow: hidden;
+    opacity: 0;
+    border-radius: 10px;
+    transition: opacity 0.3s;
+    z-index: 0;
+    background: white;
+  }
+
+  #product-carousel:hover+#zoom-image-container {
+    opacity: 1;
+  }
+
+  #zoomed-image {
+    object-fit: contain;
+    transform: scale(3);
+    transition: transform 0.3s;
+  }
+}
+
+@media (max-width: 992px) {
+  #zoom-image-container {
+    display: none;
+  }
+}
